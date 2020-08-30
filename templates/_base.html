@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{{ name }}{% if title %} | {{ title }}{% endif %}{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="{{class}}">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">RKR Logger</a>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+    <link href="static/js/bootstrap.min.css" rel="script">
+    <link href="static/js/jquery.min.css" rel="script">
+    <link href="static/js/popper.min.css" rel="script">
+  </body>
+</html>
