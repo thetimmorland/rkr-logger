@@ -1,0 +1,2 @@
+#!/bin/sh
+DEBUG=True venv/bin/python -m uvicorn app:app --host=0.0.0.0 --reload
