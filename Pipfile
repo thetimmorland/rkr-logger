@@ -14,7 +14,7 @@ jinja2 = "*"
 aiofiles = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
 
 [scripts]
 dev = "uvicorn app.main:app --reload"
