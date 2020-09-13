@@ -21,10 +21,10 @@ verbose = False
 
 # def log()
 
-#default directory to install the logger
+# default directory to install the logger
 directory = '/opt/RKR-Logger'
 
-#default Github branch to pull from
+# default Github branch to pull from
 branch = 'Dev-Bill'
 
 # syntax for calling the installer 
@@ -75,7 +75,7 @@ except requests.ConnectionError as ex:
 if verbose:
 	print 'Github is responding - starting installation'
 
-# A good chøeck to include here before executing anything else is to find out if this is the latest version of install-rkr-logger
+# A good check to include here before executing anything else is to find out if this is the latest version of install-rkr-logger
 # If this is not the latest version should we terminate? Fetch the latest version?
 
 # Sort out the directory where we are going to install
@@ -87,7 +87,7 @@ if verbose:
 if os.path.isdir(directory):
 	if verbose:
 		print 'Installation directory already exists deleting contents.'
-else
+else:
 	if verbose:
 		print 'Creating directory:', directory
 
@@ -111,4 +111,3 @@ if verbose:
 
 # Clean Exit
 exit(0)
-
