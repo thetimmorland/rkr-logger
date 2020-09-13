@@ -7,22 +7,28 @@ import sys, getopt
 # Set verbose = True to output messages while installing
 verbose = False
 
+# syntax for calling the installer 
+def usage():
+	print 'install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]'
+
 # Parse the arguments passed to the script
 # If any of them are not recognised exit with an error
 try:
-	opts, args = getopt.getopt(sys.argv[1:],"v",["verbose"])
-except getopt.GetoptError:
+	opts, args = getopt.getopt(sys.argv[1:],"vhd:b:",["verbose","help"])
+except getopt.GetoptError as err:
 	# Something went wrong, found an unexpected argument
-	print 'unexpected argument'
-	print 'expected useage: install-RKR-Logger [-v] [--verbose]'
+	print (err)
+	print 'Expected usage'
+	usage()
 	exit(2)
 
 for opt, arg in opts:
 	if opt in ("-v", "--verbose"):
 		verbose = True
-	elif opt in ("h", "--help"):
+	elif opt in ("-h", "--help"):
 		# help option found print some help and exit
-		print 'install-RKR-Logger [-v] [--verbose]'
+		# print 'install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]'
+		usage()
 		exit(0)
 
 if verbose:
