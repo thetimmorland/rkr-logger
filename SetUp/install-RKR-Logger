@@ -7,6 +7,12 @@ import sys, getopt
 # Set verbose = True to output messages while installing
 verbose = False
 
+#default directory to install the logger
+directory = '~/RKR-Logger'
+
+#default Github branch to pull from
+branch = 'Dev-Bill'
+
 # syntax for calling the installer 
 def usage():
 	print 'install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]'
@@ -30,15 +36,31 @@ for opt, arg in opts:
 		# print 'install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]'
 		usage()
 		exit(0)
+	elif opt=='-d':
+		directory = arg
+	elif opt == '-b':
+		branch = arg
 
 if verbose:
 	print 'Rum Kist Racing NMEA2000 Logger'
 	print 'Start Intall-RKR-Logger'
 
+# Sort out the directory where we are going to install
+if verbose:
+	print 'Installation directory:', directory
 # Check if there is already an RKR-Logger directory
 # If the directory does not exist create it
 # If the directory does exist delete all the files from it for a clean install
+
 # download the real installer that does all the work from GitHub
+if verbose:
+	print 'Github branch to install:', branch
+
+# Path to the Github repository
+githubPath = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/' + branch + '/'
+if verbose:
+	print 'Downloading from', githubPath 
+
 # execute the installer
 
 if verbose:
