@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # Rum Kist Racing NMEA2000 Logger install script
 # Author - Bill Morland
+# Version 1.0
 #
 # Error codes
 # 2 - script was called with an unrecognised parameter
@@ -11,15 +12,14 @@ import sys, getopt
 # Required for http connection and download from Github
 import requests
 # Required for accessing O/S filesystem
-import os.path
-# the line below is just a convenience to shorten things so os.path becomes path
-# from os import path
+import os
 
-# Installation messaging
-# Set verbose = True to output messages while installing
+# Initialise installation messaging
 verbose = False
-
-# def log()
+def log(msg):
+	if verbose:
+		print msg
+	return
 
 # default directory to install the logger
 directory = '/opt/RKR-Logger'
@@ -58,8 +58,7 @@ for opt, arg in opts:
 	elif opt == '-b':
 		branch = arg
 
-if verbose:
-	print 'Rum Kist Racing NMEA2000 Logger'
+log('*** Starting to install Rum Kist Racing NMEA2000 Logger ***')
 
 # Check for access to Github.
 # If there is no access to Github there is no point in continuing
@@ -72,42 +71,32 @@ except requests.ConnectionError as ex:
 	print (ex)
 	exit(3)
 
-if verbose:
-	print 'Github is responding - starting installation'
+log('Github is responding - starting installation')
 
 # A good check to include here before executing anything else is to find out if this is the latest version of install-rkr-logger
 # If this is not the latest version should we terminate? Fetch the latest version?
 
-# Sort out the directory where we are going to install
-if verbose:
-	print 'Installation directory:', directory
-
-
-# Check if there is already an RKR-Logger directory
+# Make sure we have a nice clean empty directory for our install
+log('Installing to directory: ' + directory)
 if os.path.isdir(directory):
-	if verbose:
-		print 'Installation directory already exists deleting contents.'
-else:
-	if verbose:
-		print 'Creating directory:', directory
-
-# If the directory does not exist create it
-# If the directory does exist delete all the files from it for a clean install
-# Before we start blowing thing away are there any other checks we should do to make sure the install is not going to fail?
+	log('Installation directory already exists deleting directory and contents.')
+	os.system('rm -rf ' + directory)
+elif os.path.isfile(directory):
+	log('A file that is not a directory exists with the name', directory, 'removing file')
+	os.system('rm ' + directory)
+log('Creating directory: ' + directory)
+os.system('mkdir ' + directory)
 
 # download the real installer that does all the work from GitHub
-if verbose:
-	print 'Github branch to install:', branch
+log('Installing from Github branch: ' + branch)
 
 # Path to the Github repository
 githubPath = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/' + branch + '/'
-if verbose:
-	print 'Downloading from', githubPath 
+log('Downloading from ' + githubPath) 
 
 # execute the installer
 
-if verbose:
-	print 'End Install-RKR-Logger'
 
 # Clean Exit
+log('*** End Install-RKR-Logger ***')
 exit(0)
