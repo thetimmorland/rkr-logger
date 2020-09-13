@@ -1,14 +1,28 @@
 #!/usr/bin/python
-# Rum Kist Racing NMEA2000 Logger
-# Install script
+# Rum Kist Racing NMEA2000 Logger install script
+# Author - Bill Morland
+#
+# Error codes
+# 2 - script was called with an unrecognised parameter
+# 3 - unable to establish a connection to Github
 
+# Required for parsing command line
 import sys, getopt
+# Required for http connection and download from Github
+import requests
+# Required for accessing O/S filesystem
+import os.path
+# the line below is just a convenience to shorten things so os.path becomes path
+# from os import path
 
+# Installation messaging
 # Set verbose = True to output messages while installing
 verbose = False
 
+# def log()
+
 #default directory to install the logger
-directory = '~/RKR-Logger'
+directory = '/opt/RKR-Logger'
 
 #default Github branch to pull from
 branch = 'Dev-Bill'
@@ -19,6 +33,9 @@ def usage():
 
 # Parse the arguments passed to the script
 # If any of them are not recognised exit with an error
+# Since this script downloads and runs the the main-install which might need more parameters
+# it might be better if it did not terminate for unknown parameters and just leave that to the main installer.
+# We can make that decision later.
 try:
 	opts, args = getopt.getopt(sys.argv[1:],"vhd:b:",["verbose","help"])
 except getopt.GetoptError as err:
@@ -43,14 +60,40 @@ for opt, arg in opts:
 
 if verbose:
 	print 'Rum Kist Racing NMEA2000 Logger'
-	print 'Start Intall-RKR-Logger'
+
+# Check for access to Github.
+# If there is no access to Github there is no point in continuing
+url = 'https://rawgithubusercontent.com' 
+timeout = 5
+try:
+	r = requests.get(url, timeout=timeout)
+except requests.ConnectionError as ex:
+	print 'Unable to establish connection to Github.'
+	print (ex)
+	exit(3)
+
+if verbose:
+	print 'Github is responding - starting installation'
+
+# A good chøeck to include here before executing anything else is to find out if this is the latest version of install-rkr-logger
+# If this is not the latest version should we terminate? Fetch the latest version?
 
 # Sort out the directory where we are going to install
 if verbose:
 	print 'Installation directory:', directory
+
+
 # Check if there is already an RKR-Logger directory
+if os.path.isdir(directory):
+	if verbose:
+		print 'Installation directory already exists deleting contents.'
+else
+	if verbose:
+		print 'Creating directory:', directory
+
 # If the directory does not exist create it
 # If the directory does exist delete all the files from it for a clean install
+# Before we start blowing thing away are there any other checks we should do to make sure the install is not going to fail?
 
 # download the real installer that does all the work from GitHub
 if verbose:
