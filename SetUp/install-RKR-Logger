@@ -1,0 +1,43 @@
+#!/usr/bin/python
+# Rum Kist Racing NMEA2000 Logger
+# Install script
+
+import sys, getopt
+
+# Set verbose = True to output messages while installing
+verbose = False
+
+# Parse the arguments passed to the script
+# If any of them are not recognised exit with an error
+try:
+	opts, args = getopt.getopt(sys.argv[1:],"v",["verbose"])
+except getopt.GetoptError:
+	# Something went wrong, found an unexpected argument
+	print 'unexpected argument'
+	print 'expected useage: install-RKR-Logger [-v] [--verbose]'
+	exit(2)
+
+for opt, arg in opts:
+	if opt in ("-v", "--verbose"):
+		verbose = True
+	elif opt in ("h", "--help"):
+		# help option found print some help and exit
+		print 'install-RKR-Logger [-v] [--verbose]'
+		exit(0)
+
+if verbose:
+	print 'Rum Kist Racing NMEA2000 Logger'
+	print 'Start Intall-RKR-Logger'
+
+# Check if there is already an RKR-Logger directory
+# If the directory does not exist create it
+# If the directory does exist delete all the files from it for a clean install
+# download the real installer that does all the work from GitHub
+# execute the installer
+
+if verbose:
+	print 'End Install-RKR-Logger'
+
+# Clean Exit
+exit(0)
+
