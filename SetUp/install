@@ -1,0 +1,11 @@
+#!/usr/bin/python
+# Rum Kist Racing NMEA2000 Logger
+# Install script
+# This is the real installer that does all the work
+# Called from install-RKR-Logger
+
+print 'install has been called'
+
+# Clean Exit
+exit(0)
+
