@@ -112,6 +112,8 @@ st = os.stat('main-install')
 os.chmod('main-install', st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 # execute the installer
 log('Executing main-install')
+os.system('./main-install')
+log('Finished executing main-install')
 
 # Clean Exit
 log('*** End Install-RKR-Logger ***')

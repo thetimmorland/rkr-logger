@@ -4,7 +4,7 @@
 # This is the real installer that does all the work
 # Called from install-RKR-Logger
 
-print 'install has been called'
+print '*** I am the main-install script ***' 
 
 # Clean Exit
 exit(0)
