@@ -13,6 +13,11 @@ import sys, getopt
 import requests
 # Required for accessing O/S filesystem
 import os
+# Required for downloading files
+import wget
+# Required for chmod permissions
+import stat
+
 
 # Initialise installation messaging
 verbose = False
@@ -86,16 +91,27 @@ elif os.path.isfile(directory):
 	os.system('rm ' + directory)
 log('Creating directory: ' + directory)
 os.system('mkdir ' + directory)
+log('Change working directory to install directory')
+os.chdir(directory)
+directory = os.getcwd()
+log('Install directory: ' + directory)
 
 # download the real installer that does all the work from GitHub
 log('Installing from Github branch: ' + branch)
 
 # Path to the Github repository
-githubPath = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/' + branch + '/'
-log('Downloading from ' + githubPath) 
+githubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/' + branch + '/'
+log('Downloading from ' + githubURL)
 
+# Get the real installer 
+log('Getting main-install script')
+fileName = wget.download(githubURL + '/SetUp/main-install', out=directory)
+log('')
+log('Making main-install executable by user group and world')
+st = os.stat('main-install')
+os.chmod('main-install', st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 # execute the installer
-
+log('Executing main-install')
 
 # Clean Exit
 log('*** End Install-RKR-Logger ***')
