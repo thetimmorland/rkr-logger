@@ -23,6 +23,8 @@ def log(msg):
 		print msg
 	return
 
+log('*** Start main-install ***')
+
 # Parse the arguments passed to the script
 # If any of them are not recognised exit with an error
 # Since this script downloads and runs the the main-install which might need more parameters
@@ -36,15 +38,18 @@ except getopt.GetoptError as err:
 	print 'Unexpected parameter - terminating main-install'
 	exit(2)
 
+gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/Dev-Bill/'
+
 for opt, arg in opts:
 	if opt == '-v':
 		verbose = True
+        log('option -v')
 	elif opt=='-g':
 		gitHubURL = arg
+        log('option -g')
 
 directory = os.getcwd()
 
-log('*** Start main-install ***')
 log('installing from ' + gitHubURL)
 log('installing to ' + directory)
 
