@@ -42,10 +42,25 @@ for opt, arg in opts:
 	elif opt=='-g':
 		gitHubURL = arg
 
+directory = os.getcwd()
+
 log('*** Start main-install ***')
 log('installing from ' + gitHubURL)
+log('installing to ' + directory)
 
-print '*** I am the main-install script ***' 
+# download all the files listed in the manifest file
+log('Retrieving manifest of files to install')
+fileName = wget.download(githubURL + '/SetUp/manifest.txt', out=directory)
+log('')
+
+
+# install apt dependencies
+log('Installing apt dependencies')
+apt-get update
+apt-get install -y can-utils
+
+# modify /boot/config.txt
+log('Modifying /boot/config')
 
 log('*** Finish main-install')
 
