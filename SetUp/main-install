@@ -44,9 +44,11 @@ for opt, arg in opts:
     if opt == '-v':	
         verbose = True
         log('option -v')
+        print '*********** -v'
     elif opt == '-g':
         gitHubURL = arg
         log('option -g')
+        print '*********** -g'
 
 directory = os.getcwd()
 
