@@ -112,8 +112,12 @@ st = os.stat('main-install')
 os.chmod('main-install', st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 # execute the installer
 log('Executing main-install')
-os.system('./main-install')
+rc = os.system('./main-install -v -g ' + githubURL)
 log('Finished executing main-install')
+
+if(rc != 0):
+    log('Something went wrong in main-install')
+    exit(rc)
 
 # Clean Exit
 log('*** End Install-RKR-Logger ***')
