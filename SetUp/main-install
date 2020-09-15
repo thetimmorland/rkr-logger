@@ -50,7 +50,7 @@ log('installing to ' + directory)
 
 # download all the files listed in the manifest file
 log('Retrieving manifest of files to install')
-fileName = wget.download(githubURL + '/SetUp/manifest.txt', out=directory)
+fileName = wget.download(gitHubURL + 'SetUp/manifest.txt', out=directory)
 log('')
 
 
