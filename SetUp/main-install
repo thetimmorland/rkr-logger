@@ -57,11 +57,21 @@ log('installing to ' + directory)
 
 # download all the files listed in the manifest file
 log('Retrieving manifest of files to install')
-fileName = wget.download(gitHubURL + 'SetUp/manifest.txt', out=directory)
+try:
+    fileName = wget.download(gitHubURL + 'SetUp/manifest.txt', out=directory)
+except Exception as e:
+    log('Failed to download manifest')
+    exit(3)
+log('')
 log('downloaded ' + fileName)
 manifest = open('manifest.txt', 'r')
 for source in manifest:
-    fileName = wget.download(gitHubURL + source, out=directory)
+    try:
+        fileName = wget.download(gitHubURL + source, out=directory)
+    except Exception as e:
+        log('failed to download ' + source)
+        exit(3)
+    log('')
     log('downloaded ' + fileName)
 
 # install apt dependencies
