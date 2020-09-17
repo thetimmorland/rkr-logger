@@ -1,2 +1,3 @@
 # manifest of files to install on Pi
 Reference/RS485_CAN_HAT_Code/CAN/python/receive.py
+Reference/RS485_CAN_HAT_Code/CAN/python/send.py
