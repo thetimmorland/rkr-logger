@@ -58,13 +58,16 @@ log('installing to ' + directory)
 # download all the files listed in the manifest file
 log('Retrieving manifest of files to install')
 fileName = wget.download(gitHubURL + 'SetUp/manifest.txt', out=directory)
-log('')
-
+log('downloaded ' + fileName)
+manifest = open('manifest.txt', 'r')
+for source in manifest:
+    fileName = wget.download(gitHubURL + source, out=directory)
+    log('downloaded ' + fileName)
 
 # install apt dependencies
 log('Installing apt dependencies')
-rc = os.system('apt-get update')
-rc = os.system('apt-get install -y can-utils')
+#rc = os.system('apt-get update')
+#rc = os.system('apt-get install -y can-utils')
 
 # modify /boot/config.txt
 log('Modifying /boot/config')
