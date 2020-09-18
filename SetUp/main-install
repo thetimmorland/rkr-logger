@@ -102,10 +102,10 @@ if not(lineOneFound) or not(lineTwoFound):
     cfg.write('\n\n')
     if not(lineOneFound):
         log('Writing ' + cfgLineOne.strip('\n')
-        cfg.write(cfgLineOne)
+        cfg.write('cfgLineOne')
     if not(lineTwoFound):
         log('Writing ' + cfgLineTwo.strip('\n'))
-        cfg.write(cfgLineTwo)
+        cfg.write('cfgLineTwo')
 cfg.closed()
         
 log('Finished modifying /boot/config.txt')
