@@ -62,7 +62,7 @@ for opt, arg in opts:
 		branch = arg
 
 log('*** Installing Rum Kist Racing NMEA2000 Logger ***')
-log()
+log('')
 log('*** Start install-RKR-Logger ***')
 
 # Check for access to Github.
@@ -112,12 +112,12 @@ st = os.stat('main-install')
 os.chmod('main-install', st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 # execute the installer
 log('Executing main-install')
-log()
+log('')
 if verbose:
     rc = os.system('./main-install -v -g ' + githubURL)
 else:
     rc = os.system('./main-install -g ' + githubURL)
-log()
+log('')
 log('Finished executing main-install')
 
 if (rc != 0):
