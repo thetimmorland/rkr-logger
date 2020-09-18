@@ -54,8 +54,6 @@ for opt, arg in opts:
 	if opt in ("-v", "--verbose"):
 		verbose = True
 	elif opt in ("-h", "--help"):
-		# help option found print some help and exit
-		# print 'install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]'
 		usage()
 		exit(0)
 	elif opt=='-d':
@@ -63,7 +61,9 @@ for opt, arg in opts:
 	elif opt == '-b':
 		branch = arg
 
-log('*** Starting to install Rum Kist Racing NMEA2000 Logger ***')
+log('*** Installing Rum Kist Racing NMEA2000 Logger ***')
+log()
+log('*** Start install-RKR-Logger ***')
 
 # Check for access to Github.
 # If there is no access to Github there is no point in continuing
@@ -112,14 +112,18 @@ st = os.stat('main-install')
 os.chmod('main-install', st.st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 # execute the installer
 log('Executing main-install')
-# Need to work out how to get std out from the main-install
-rc = os.system('./main-install -v -g ' + githubURL)
+log()
+if verbose:
+    rc = os.system('./main-install -v -g ' + githubURL)
+else:
+    rc = os.system('./main-install -g ' + githubURL)
+log()
 log('Finished executing main-install')
 
-if(rc != 0):
+if (rc != 0):
     log('Something went wrong in main-install')
     exit(rc)
 
 # Clean Exit
-log('*** End Install-RKR-Logger ***')
+log('*** End install-RKR-Logger ***')
 exit(0)

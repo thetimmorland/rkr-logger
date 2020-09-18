@@ -19,13 +19,11 @@ import urllib2
 
 
 # Initialise installation messaging
-verbose = True
+verbose = False
 def log(msg):
     if verbose:
         print msg
     return
-
-log('*** Start main-install ***')
 
 # Parse the arguments passed to the script
 # If any of them are not recognised exit with an error
@@ -33,12 +31,14 @@ log('*** Start main-install ***')
 # it might be better if it did not terminate for unknown parameters and just leave that to the main installer.
 # We can make that decision later.
 try:
-    opts, args = getopt.getopt(sys.argv[1:],"vg:",["verbose"])
+    opts, args = getopt.getopt(sys.argv[1:],"vd:",["verbose"])
 except getopt.GetoptError as err:
     # Something went wrong, found an unexpected argument
     print (err)
     print 'Unexpected parameter - terminating main-install'
     exit(2)
+
+log('*** Start main-install ***')
 
 gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/Dev-Bill/'
 
@@ -48,7 +48,7 @@ for opt, arg in opts:
         log('option -v')
     elif opt == '-g':
         gitHubURL = arg
-        log('option -g')
+        log('option -g' + arg)
 
 directory = os.getcwd()
 
@@ -83,7 +83,7 @@ rc = os.system('apt-get install -y can-utils')
 # modify /boot/config.txt
 log('Modifying /boot/config')
 
-log('*** Finish main-install')
+log('*** End main-install ***')
 
 # Clean Exit
 exit(0)
