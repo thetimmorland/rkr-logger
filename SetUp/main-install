@@ -99,13 +99,13 @@ cfg.close()
 if not(lineOneFound) or not(lineTwoFound):
     log('Adding to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
-    cfg.write('\n\n')
+    cfg.write('\n#RKR Logger\n')
     if not(lineOneFound):
-        log('Writing ' + cfgLineOne.strip('\n')
-        cfg.write('cfgLineOne')
+        log('Writing ' + cfgLineOne.strip('\n'))
+        cfg.write(cfgLineOne)
     if not(lineTwoFound):
         log('Writing ' + cfgLineTwo.strip('\n'))
-        cfg.write('cfgLineTwo')
+        cfg.write(cfgLineTwo)
 cfg.closed()
         
 log('Finished modifying /boot/config.txt')
