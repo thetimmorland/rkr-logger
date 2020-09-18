@@ -96,14 +96,14 @@ for source in cfg:
         lineTwoFound = True
         log('Found' + source.strip('\n'))
 cfg.close()
-if !lineOneFound | !lineTwoFound:
+if not(lineOneFound) or not(lineTwoFound):
     log('Adding to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
     cfg.write('\n\n')
-    if !lineOneFound:
+    if not(lineOneFound):
         log('Writing ' + cfgLineOne.strip('\n')
         cfg.write(cfgLineOne)
-    if !lineTwoFound:
+    if not(lineTwoFound):
         log('Writing ' + cfgLineTwo.strip('\n'))
         cfg.write(cfgLineTwo)
 cfg.closed()
