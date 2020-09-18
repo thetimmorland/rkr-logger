@@ -31,7 +31,7 @@ def log(msg):
 # it might be better if it did not terminate for unknown parameters and just leave that to the main installer.
 # We can make that decision later.
 try:
-    opts, args = getopt.getopt(sys.argv[1:],"vd:",["verbose"])
+    opts, args = getopt.getopt(sys.argv[1:],"vg:",["verbose"])
 except getopt.GetoptError as err:
     # Something went wrong, found an unexpected argument
     print (err)
