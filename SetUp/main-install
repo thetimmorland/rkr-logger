@@ -74,6 +74,7 @@ for source in manifest:
         fileName = wget.download(fileToGet, out=directory)
         log('')
         log('downloaded ' + fileName)
+manifest.close()
 
 # install apt dependencies
 log('Installing apt dependencies')
@@ -82,6 +83,32 @@ rc = os.system('apt-get install -y can-utils')
 
 # modify /boot/config.txt
 log('Modifying /boot/config')
+cfgLineOne = 'dtparam=spi=on\n'
+cfgLineTwo = 'dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'
+lineOneFound = False
+lineTwoFound = False
+cfg = open('/boot/config.txt')
+for source in cfg:
+    if source == cfgLineOne:
+        lineOneFound = True
+        log('Found ' + source.strip('\n'))
+    if source == cfgLineTwo:
+        lineTwoFound = True
+        log('Found' + source.strip('\n'))
+cfg.close()
+if !lineOneFound | !lineTwoFound:
+    log('Adding to /boot/config.txt')
+    cfg = open('/boot/config.txt', 'a')
+    cfg.write('\n\n')
+    if !lineOneFound:
+        log('Writing ' + cfgLineOne.strip('\n')
+        cfg.write(cfgLineOne)
+    if !lineTwoFound:
+        log('Writing ' + cfgLineTwo.strip('\n'))
+        cfg.write(cfgLineTwo)
+cfg.closed()
+        
+log('Finished modifying /boot/config.txt')
 
 log('*** End main-install ***')
 
