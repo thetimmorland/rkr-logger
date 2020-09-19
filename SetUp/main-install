@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Rum Kist Racing NMEA2000 Logger
 # Install script
 # This is the real installer that does all the work
