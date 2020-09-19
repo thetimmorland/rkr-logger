@@ -83,29 +83,33 @@ rc = os.system('apt-get install -y can-utils')
 
 # modify /boot/config.txt
 log('Modifying /boot/config')
-cfgLineOne = 'dtparam=spi=on\n'
-cfgLineTwo = 'dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'
-lineOneFound = False
-lineTwoFound = False
-cfg = open('/boot/config.txt')
+
+class CfgLine:
+    def __init__(self, line):
+        self.line = line
+        self.found = False
+
+bootCfg = []
+bootCfg.append(CfgLine('dtparam=spi=on\n'))
+bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
+needUpdate = False
+
+cfg = open('/boot/config.txt', 'r')
 for source in cfg:
-    if source == cfgLineOne:
-        lineOneFound = True
-        log('Found ' + source.strip('\n'))
-    if source == cfgLineTwo:
-        lineTwoFound = True
-        log('Found' + source.strip('\n'))
+    for target in bootCfg:
+        if source == target:
+            target.found = True
+            needUpdate = True
 cfg.close()
-if not(lineOneFound) or not(lineTwoFound):
+
+if needUpdate:
     log('Adding to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
     cfg.write('\n#RKR Logger\n')
-    if not(lineOneFound):
-        log('Writing ' + cfgLineOne.strip('\n'))
-        cfg.write(cfgLineOne)
-    if not(lineTwoFound):
-        log('Writing ' + cfgLineTwo.strip('\n'))
-        cfg.write(cfgLineTwo)
+    for target in bootCfg:
+        if not(target.found):
+            log('Writing ' + target.line.strip('\n'))
+            cfg.write(target.line)
 cfg.close()
         
 log('Finished modifying /boot/config.txt')
