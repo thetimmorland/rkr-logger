@@ -105,7 +105,7 @@ if needUpdate:
     log('Writing to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
     cfg.write('\n# RKR Logger\n')
-    cgg.write('# Waveshare RS485 CAN HAT mcp2515 kernel driver')
+    cfg.write('# Waveshare RS485 CAN HAT mcp2515 kernel driver')
     for target in bootCfg:
         if not(target.found):
             log('Writing ' + target.line.strip('\n'))
