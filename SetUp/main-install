@@ -38,7 +38,7 @@ except getopt.GetoptError as err:
 
 log('*** Start main-install ***')
 
-gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/Dev-Bill/'
+gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/master/'
 
 for opt, arg in opts:
     if opt == '-v':	
@@ -104,7 +104,8 @@ cfg.close()
 if needUpdate:
     log('Writing to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
-    cfg.write('\n#RKR Logger\n')
+    cfg.write('\n# RKR Logger\n')
+    cgg.write('# Waveshare RS485 CAN HAT mcp2515 kernel driver')
     for target in bootCfg:
         if not(target.found):
             log('Writing ' + target.line.strip('\n'))

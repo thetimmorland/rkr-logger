@@ -30,7 +30,7 @@ def log(msg):
 directory = '/opt/RKR-Logger'
 
 # default Github branch to pull from
-branch = 'Dev-Bill'
+branch = 'master'
 
 # syntax for calling the installer 
 def usage():
