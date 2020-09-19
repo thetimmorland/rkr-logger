@@ -72,8 +72,8 @@ timeout = 5
 try:
 	r = requests.get(url, timeout=timeout)
 except requests.ConnectionError as ex:
-	print 'Unable to establish connection to Github.'
-	print (ex)
+	print('Unable to establish connection to Github.')
+	print(ex)
 	exit(3)
 
 log('Github is responding - starting installation')
