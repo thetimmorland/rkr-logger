@@ -81,8 +81,7 @@ log('Installing apt dependencies')
 rc = os.system('apt-get update')
 rc = os.system('apt-get install -y can-utils')
 
-# modify /boot/config.txt
-log('Modifying /boot/config')
+# modify /boot/config.txt if required
 
 class CfgLine:
     def __init__(self, line):
@@ -94,22 +93,26 @@ bootCfg.append(CfgLine('dtparam=spi=on\n'))
 bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
 needUpdate = False
 
+log('Reading /boot/config.txt, checking if updates required.')
 cfg = open('/boot/config.txt', 'r')
 for source in cfg:
     for target in bootCfg:
         if source == target:
+            log('Found ' + target.line.strip('\n'))
             target.found = True
             needUpdate = True
 cfg.close()
 
 if needUpdate:
-    log('Adding to /boot/config.txt')
+    log('Writing to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
     cfg.write('\n#RKR Logger\n')
     for target in bootCfg:
         if not(target.found):
             log('Writing ' + target.line.strip('\n'))
             cfg.write(target.line)
+else:
+    log('No updates needed to /boot/config.txt')
 cfg.close()
         
 log('Finished modifying /boot/config.txt')
