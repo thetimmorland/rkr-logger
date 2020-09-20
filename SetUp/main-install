@@ -36,8 +36,6 @@ except getopt.GetoptError as err:
     print('Unexpected parameter - terminating main-install')
     exit(2)
 
-log('*** Start main-install ***')
-
 gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/master/'
 
 for opt, arg in opts:
@@ -47,6 +45,8 @@ for opt, arg in opts:
     elif opt == '-g':
         gitHubURL = arg
         log('option -g' + arg)
+
+log('*** Start main-install ***')
 
 directory = os.getcwd()
 
