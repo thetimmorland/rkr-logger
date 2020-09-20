@@ -89,7 +89,7 @@ class CfgLine:
 bootCfg = []
 bootCfg.append(CfgLine('dtparam=spi=on\n'))
 bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
-needUpdate = True
+needUpdate = False
 
 log('Reading /boot/config.txt, checking if updates required.')
 cfg = open('/boot/config.txt', 'r')
@@ -98,14 +98,15 @@ for source in cfg:
         if source == target.line:
             log('Found ' + target.line.strip('\n'))
             target.found = True
-            needUpdate = False
+        else:
+            needUpdate = True
 cfg.close()
 
 if needUpdate:
     log('Writing to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
     cfg.write('\n# RKR Logger\n')
-    cfg.write('# Waveshare RS485 CAN HAT mcp2515 kernel driver')
+    cfg.write('# Waveshare RS485 CAN HAT mcp2515 kernel driver\n')
     for target in bootCfg:
         if not(target.found):
             log('Writing ' + target.line.strip('\n'))
