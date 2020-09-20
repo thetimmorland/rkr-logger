@@ -89,7 +89,6 @@ class CfgLine:
 bootCfg = []
 bootCfg.append(CfgLine('dtparam=spi=on\n'))
 bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
-needUpdate = False
 
 log('Reading /boot/config.txt, checking if updates required.')
 cfg = open('/boot/config.txt', 'r')
@@ -98,9 +97,13 @@ for source in cfg:
         if source == target.line:
             log('Found ' + target.line.strip('\n'))
             target.found = True
-        else:
-            needUpdate = True
 cfg.close()
+
+# Is there anything to update in /boot/config.txt?
+needUpdate = False
+for target in bootCfg:
+    if not(target.found):
+        needUpdate = True
 
 if needUpdate:
     log('Writing to /boot/config.txt')
