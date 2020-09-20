@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Rum Kist Racing NMEA2000 Logger
 # Install script
 # This is the real installer that does all the work
@@ -6,23 +6,21 @@
 
 # Required for parsing command line
 import sys, getopt
-# Required for http connection and download from Github
-import requests
 # Required for accessing O/S filesystem
 import os
 # Required for downloading files
 import wget
 # Required for chmod permissions
-import stat
+# import stat
 # Required for testing existance of a file on Github
-import urllib2
+import urllib3
 
 
 # Initialise installation messaging
 verbose = False
 def log(msg):
     if verbose:
-        print msg
+        print(msg)
     return
 
 # Parse the arguments passed to the script
@@ -34,13 +32,11 @@ try:
     opts, args = getopt.getopt(sys.argv[1:],"vg:",["verbose"])
 except getopt.GetoptError as err:
     # Something went wrong, found an unexpected argument
-    print (err)
-    print 'Unexpected parameter - terminating main-install'
+    print(err)
+    print('Unexpected parameter - terminating main-install')
     exit(2)
 
-log('*** Start main-install ***')
-
-gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/Dev-Bill/'
+gitHubURL = 'https://raw.githubusercontent.com/thetimmorland/rkr-logger/master/'
 
 for opt, arg in opts:
     if opt == '-v':	
@@ -49,6 +45,8 @@ for opt, arg in opts:
     elif opt == '-g':
         gitHubURL = arg
         log('option -g' + arg)
+
+log('*** Start main-install ***')
 
 directory = os.getcwd()
 
@@ -61,13 +59,13 @@ fileName = wget.download(gitHubURL + 'SetUp/manifest.txt')
 log('')
 log('downloaded ' + fileName)
 manifest = open('manifest.txt', 'r')
+http = urllib3.PoolManager()
 for source in manifest:
     if source[0] != '#':
         fileToGet = gitHubURL + source.strip('\n')
-        req = urllib2.Request(fileToGet)
-        try: 
-            urllib2.urlopen(req)
-        except urllib2.URLError as e:
+        try:
+            req = http.request('GET', fileToGet)
+        except urllib3.exceptions.HTTPError as e:
             log('unable to find file ' + source.strip('\n') + ' listed in manifest')
             log(e)
             exit(3)
@@ -91,7 +89,7 @@ class CfgLine:
 bootCfg = []
 bootCfg.append(CfgLine('dtparam=spi=on\n'))
 bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
-needUpdate = True
+needUpdate = False
 
 log('Reading /boot/config.txt, checking if updates required.')
 cfg = open('/boot/config.txt', 'r')
@@ -100,13 +98,15 @@ for source in cfg:
         if source == target.line:
             log('Found ' + target.line.strip('\n'))
             target.found = True
-            needUpdate = False
+        else:
+            needUpdate = True
 cfg.close()
 
 if needUpdate:
     log('Writing to /boot/config.txt')
     cfg = open('/boot/config.txt', 'a')
-    cfg.write('\n#RKR Logger\n')
+    cfg.write('\n# RKR Logger\n')
+    cfg.write('# Waveshare RS485 CAN HAT mcp2515 kernel driver\n')
     for target in bootCfg:
         if not(target.found):
             log('Writing ' + target.line.strip('\n'))

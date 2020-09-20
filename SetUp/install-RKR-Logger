@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # Rum Kist Racing NMEA2000 Logger install script
 # Author - Bill Morland
 # Version 1.0
@@ -23,18 +23,18 @@ import stat
 verbose = False
 def log(msg):
 	if verbose:
-		print msg
+		print(msg)
 	return
 
 # default directory to install the logger
 directory = '/opt/RKR-Logger'
 
 # default Github branch to pull from
-branch = 'Dev-Bill'
+branch = 'master'
 
 # syntax for calling the installer 
 def usage():
-	print 'install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]'
+	print('install-RKR-Logger [-v] [-d <install directory>] [-b <Github branch>] [--verbose]')
 
 # Parse the arguments passed to the script
 # If any of them are not recognised exit with an error
@@ -45,8 +45,8 @@ try:
 	opts, args = getopt.getopt(sys.argv[1:],"vhd:b:",["verbose","help"])
 except getopt.GetoptError as err:
 	# Something went wrong, found an unexpected argument
-	print (err)
-	print 'Expected usage'
+	print(err)
+	print('Expected usage')
 	usage()
 	exit(2)
 
@@ -72,8 +72,8 @@ timeout = 5
 try:
 	r = requests.get(url, timeout=timeout)
 except requests.ConnectionError as ex:
-	print 'Unable to establish connection to Github.'
-	print (ex)
+	print('Unable to establish connection to Github.')
+	print(ex)
 	exit(3)
 
 log('Github is responding - starting installation')
