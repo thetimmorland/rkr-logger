@@ -8,7 +8,7 @@ import can
 os.system('sudo ip link set can0 up type can bitrate 100000')
 
 can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan', bitrate=1000000)
-print(f'can0 channel info (can0.channel_info}\n')
+print(f'can0 channel info {can0.channel_info}\n')
 os.system('sudo ip -details -statistics link show can0')
 print('\n')
 
