@@ -31,7 +31,7 @@ while numberOfMessagesRead < 10:
     if not(msg == None):
         print('Read message: ' + msg.__str__())
         numberOfMessagesRead += 1
-        logFile.write(msg.__str__())
+        logFile.write(msg.__str__() + '\n')
 
 print('Close log file')
 logFile.close()
