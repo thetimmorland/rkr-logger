@@ -1,0 +1,1 @@
+# Import classesfrom Message import Message# Create a message objectmsg = Message()msg_pgn = Message(2)print(msg)

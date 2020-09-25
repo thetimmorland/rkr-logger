@@ -1,0 +1,1 @@
+# coding: utf-8"""This module contains the implementation of :class:'nmea2000.Message'"""class Message (object):    """    The :class:'~nmea2000.Message' is used to represent nmea2000 messages    """        def __init__(self, pgn = 0):        self.pgn = pgn        def __str__(self):        return 'PGN'
