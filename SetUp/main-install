@@ -79,6 +79,9 @@ log('Installing apt dependencies')
 rc = os.system('apt-get update')
 rc = os.system('apt-get install -y can-utils')
 
+# install python packages
+rc = os.system('pip3 install --upgrade python-can')
+
 # modify /boot/config.txt if required
 
 class CfgLine:
