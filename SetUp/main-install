@@ -92,9 +92,9 @@ class CfgLine:
 bootCfg = []
 bootCfg.append(CfgLine('dtparam=spi=on\n'))
 # RS485 CAN HAT - 8M crystal version
-bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
+# bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000\n'))
 # RS485 CAN HAT - 12M crystal version
-# bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=12000000,interrupt=25,spimaxfrequency=2000000\n'))
+bootCfg.append(CfgLine('dtoverlay=mcp2515-can0,oscillator=12000000,interrupt=25,spimaxfrequency=2000000\n'))
 
 log('Reading /boot/config.txt, checking if updates required.')
 cfg = open('/boot/config.txt', 'r')

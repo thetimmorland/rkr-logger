@@ -8,7 +8,7 @@ sudo vi /boot/config.txt
 
 And add the following: 
 dtparam=spi=on
-dtoverlay=mcp2515-can0,oscillator=8000000,interrupt=25,spimaxfrequency=1000000
+dtoverlay=mcp2515-can0,oscillator=12000000,interrupt=25,spimaxfrequency=2000000
 
 Then restart the raspberry pi：
 sudo reboot
